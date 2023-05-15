@@ -1,17 +1,49 @@
 import React from 'react';
-import { Button, Card, Checkbox, Form, Input, Space } from 'antd';
+import { Button, Card, Checkbox, Form, Input, notification, Space } from 'antd';
 
 import './style.css';
-
-const onFinish = (values: any) => {
-  console.log('Success:', values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo);
-};
+import { login } from '../../apis/auth';
+import { saveToken, saveUserInfo } from '../../helpers/storage';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+  const navigate = useNavigate();
+
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+    // call api
+    login(values)
+      .then((data) => {
+        // saveToken
+        saveToken(data.token);
+        // saveUserInfo
+        saveUserInfo({
+          username: data.username,
+        });
+
+        notification.success({
+          message: 'Login',
+          description: 'Login successful!',
+        });
+
+        // redirect to homepage
+        navigate('/');
+      })
+      .catch((err) => {
+        let description = 'Something went wrong!';
+        if (err.response.data && err.response.data.message) {
+          description = err.response.data.message;
+        }
+        notification.error({
+          message: 'Login',
+          description,
+        });
+      });
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
   return (
     <Space direction='horizontal' className='login-container'>
       <Card

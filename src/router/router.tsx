@@ -2,7 +2,8 @@ import { TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { MenuProps } from 'rc-menu';
 import { RouteObject } from 'react-router-dom';
 import AccountProfile from '../app-components/account-profile/AccountProfile';
-import ListUser from '../app-components/users-management/ListUser';
+import CreateUser from '../app-components/users-management/create-user/CreateUser';
+import ListUser from '../app-components/users-management/list-user/ListUser';
 import DefaultLayout from '../layout/DefaultLayout';
 import LoginPage from '../pages/login/LoginPage';
 import Page404 from '../pages/result/Page404';
@@ -24,7 +25,7 @@ const navRoutes: IRoute[] = [
       {
         path: '/user/create',
         title: 'Create User',
-        component: 'Create User',
+        component: <CreateUser />,
       },
       {
         path: '/user/list',
