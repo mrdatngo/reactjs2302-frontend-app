@@ -1,4 +1,5 @@
 import { Button, Space, Switch, Tag, Typography } from 'antd';
+import { IAccountInfo } from '../../../types/account';
 
 const { Text } = Typography;
 
@@ -6,18 +7,24 @@ const onChange = (checked: boolean) => {
   console.log(`switch to ${checked}`);
 };
 
-const ProfileDetail: React.FC = () => {
+const ProfileDetail: React.FC<{
+  account?: IAccountInfo;
+}> = ({ account }) => {
   return (
     <>
       <Space size={24} direction='vertical'>
         <Space>
           <Text type='secondary'>Username</Text>
-          <Text strong>admin</Text>
+          <Text strong>{account?.username}</Text>
         </Space>
         <Space>
           <Text type='secondary'>Status</Text>
           <Text strong>
-            <Switch defaultChecked onChange={onChange} />
+            <Switch
+              defaultChecked
+              checked={account?.active}
+              onChange={onChange}
+            />
           </Text>
         </Space>
         <Space>

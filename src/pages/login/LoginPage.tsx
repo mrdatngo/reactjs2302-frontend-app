@@ -17,9 +17,9 @@ function LoginPage() {
         // saveToken
         saveToken(data.token);
         // saveUserInfo
-        saveUserInfo({
-          username: data.username,
-        });
+        // saveUserInfo({
+        //   username: data.username,
+        // });
 
         notification.success({
           message: 'Login',

@@ -8,6 +8,8 @@ import DefaultLayout from '../layout/DefaultLayout';
 import LoginPage from '../pages/login/LoginPage';
 import Page404 from '../pages/result/Page404';
 
+import Counter from '@/app-components/counter/Counter';
+
 interface IRoute {
   path: string;
   title: string;
@@ -45,6 +47,12 @@ const navRoutes: IRoute[] = [
         component: <AccountProfile />,
       },
     ],
+  },
+  {
+    path: '/counter',
+    title: 'Counter',
+    icon: <UserOutlined />,
+    component: <Counter />,
   },
 ];
 
