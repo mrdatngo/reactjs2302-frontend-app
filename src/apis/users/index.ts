@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BASE_URL, getQueryParams } from '..';
 import { IAddress, ListUser } from '../../types/users';
 
-interface IGetListUserParam {
+export interface IGetListUserParam {
   searchKey: string;
 }
 
