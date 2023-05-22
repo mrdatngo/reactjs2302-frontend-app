@@ -11,18 +11,23 @@ type MenuItem = Required<MenuProps>['items'][number];
 import avt from '../assets/imgs/avatar.png';
 import usa from '../assets/icons/usa.svg';
 import { clearToken, clearUserInfo } from '../helpers/storage';
+import { useAppDispatch } from '@/_redux/hooks';
+import { AccountSelector, getAccountInfoAction } from '@/_redux/features/auth';
 
 const DefaultLayout: React.FC = () => {
   const [items, setItems] = useState<MenuItem[]>([]);
   const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAccountInfoAction());
+  }, []);
+
+  const accountSelector = AccountSelector();
+
   const breadcrumbs = location.pathname
     .split('/')
     .filter((bc) => bc != '' && bc != '/');
-
-  const userInfo = {
-    name: 'admin',
-  };
 
   const onLogout = () => {
     clearUserInfo();
@@ -33,7 +38,9 @@ const DefaultLayout: React.FC = () => {
   const headerDropdownitems: MenuProps['items'] = [
     {
       key: '0',
-      label: userInfo.name,
+      label: accountSelector.loading
+        ? 'loading'
+        : accountSelector.accountData?.username,
     },
     {
       key: '1',

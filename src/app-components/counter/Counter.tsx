@@ -1,19 +1,29 @@
-import { decrement, increment } from '@/_redux/features/counter';
-import store from '@/_redux/store';
-import { useSelector } from 'react-redux';
+import {
+  decrement,
+  increment,
+  incrementAsync,
+} from '@/_redux/features/counter';
+import { useAppDispatch, useAppSelector } from '@/_redux/hooks';
 
 function Counter() {
-  const counter = useSelector((state: any) => state.counter.value);
+  const counter = useAppSelector((state: any) => state.counter.value);
+
+  const dispatch = useAppDispatch();
+
+  // const increaseAfter1Second = () => {
+  //   setTimeout(() => {
+  //     store.dispatch(increment());
+  //   }, 1000);
+  // };
 
   return (
     <div>
       Counter: {counter}
       <br />
-      <button onClick={() => store.dispatch(increment())}>
-        Increase Value
-      </button>
-      <button onClick={() => store.dispatch(decrement())}>
-        Decrease Value
+      <button onClick={() => dispatch(increment())}>Increase Value</button>
+      <button onClick={() => dispatch(decrement())}>Decrease Value</button>
+      <button onClick={() => dispatch(incrementAsync())}>
+        Increase After 1 second
       </button>
     </div>
   );
