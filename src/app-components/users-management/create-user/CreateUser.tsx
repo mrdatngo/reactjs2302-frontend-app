@@ -8,6 +8,7 @@ import {
   Space,
 } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { createAUser } from '../../../apis/users';
 
 const { Option } = Select;
@@ -28,6 +29,7 @@ const tailLayout = {
 };
 
 function CreateUser() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(false);
 
   const onFinish = (values: any) => {
@@ -95,7 +97,7 @@ function CreateUser() {
         <Input />
       </Form.Item>
       <Form.Item
-        label='Name'
+        label={t('Name')}
         name='name'
         rules={[
           {

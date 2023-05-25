@@ -1,26 +1,20 @@
 import React from 'react';
 import { Button, Card, Checkbox, Form, Input, notification, Space } from 'antd';
 
-import './style.css';
+import './style.scss';
 import { login } from '../../apis/auth';
-import { saveToken, saveUserInfo } from '../../helpers/storage';
+import { saveToken } from '../../helpers/storage';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function LoginPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const onFinish = (values: any) => {
-    console.log('Success:', values);
-    // call api
     login(values)
       .then((data) => {
-        // saveToken
         saveToken(data.token);
-        // saveUserInfo
-        // saveUserInfo({
-        //   username: data.username,
-        // });
-
         notification.success({
           message: 'Login',
           description: 'Login successful!',
@@ -47,8 +41,8 @@ function LoginPage() {
   return (
     <Space direction='horizontal' className='login-container'>
       <Card
-        title='Login'
-        extra={<a href='#'>Register</a>}
+        title={t('Login')}
+        extra={<a href='#'>{t('Register')}</a>}
         style={{ width: 500 }}
       >
         <Form
@@ -62,7 +56,7 @@ function LoginPage() {
           autoComplete='off'
         >
           <Form.Item
-            label='Username'
+            label={t('Username')}
             name='username'
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
@@ -70,7 +64,7 @@ function LoginPage() {
           </Form.Item>
 
           <Form.Item
-            label='Password'
+            label={t('Password')}
             name='password'
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
@@ -82,12 +76,12 @@ function LoginPage() {
             valuePropName='checked'
             wrapperCol={{ offset: 8, span: 16 }}
           >
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox>{t('Remember me')}</Checkbox>
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type='primary' htmlType='submit'>
-              Submit
+              {t('Submit')}
             </Button>
           </Form.Item>
         </Form>

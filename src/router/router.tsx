@@ -1,14 +1,25 @@
 import { TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { MenuProps } from 'rc-menu';
 import { RouteObject } from 'react-router-dom';
-import AccountProfile from '../app-components/account-profile/AccountProfile';
-import CreateUser from '../app-components/users-management/create-user/CreateUser';
-import ListUser from '../app-components/users-management/list-user/ListUser';
+
 import DefaultLayout from '../layout/DefaultLayout';
 import LoginPage from '../pages/login/LoginPage';
 import Page404 from '../pages/result/Page404';
 
 import Counter from '@/app-components/counter/Counter';
+import { lazy } from 'react';
+
+const CreateUser = lazy(
+  () => import('@/app-components/users-management/create-user/CreateUser')
+);
+
+const ListUser = lazy(
+  () => import('@/app-components/users-management/list-user/ListUser')
+);
+
+const AccountProfile = lazy(
+  () => import('@/app-components/account-profile/AccountProfile')
+);
 
 interface IRoute {
   path: string;
@@ -103,7 +114,10 @@ function getItem(
   } as MenuItem;
 }
 
-function GetMenu(routes: IRoute[]): MenuItem[] {
+function GetMenu(routes: IRoute[] | undefined): MenuItem[] {
+  if (!routes) {
+    return [];
+  }
   const items: MenuItem[] = [];
   routes.map((route) => {
     if (!route.children) {
